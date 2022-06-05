@@ -52,3 +52,13 @@ let questions = [
         answer: 1,
     }
 ]
+
+const MAX_QUESTIONS = 5
+
+function startGame () {
+
+}
+
+function getNewQuestions () {
+
+}
