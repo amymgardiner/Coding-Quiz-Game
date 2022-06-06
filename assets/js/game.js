@@ -58,7 +58,7 @@ const MAX_QUESTIONS = 5
 
 function startGame () {
     questionCounter = 0
-    score = 0
+    score = 75
     availableQuestions = [...questions]
     getNewQuestions ()
 
