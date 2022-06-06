@@ -1,9 +1,11 @@
+// items to target
 const question = document.querySelector('#question')
 const choices = Array.from(document.querySelectorAll('.choice-text'))
 const progressText = document.querySelector('#progressText')
 const scoreText = document.querySelector('#score')
 const progressBarFull = document.querySelector('#progressBarFull')
 
+// global variables
 let currentQuestion = {}
 let acceptingAnswers = true
 let score = 0
@@ -55,7 +57,7 @@ let questions = [
     }
 ]
 
-// amount to decrease from score if there's a wrong answer
+// amount to decrease from score if there's a wrong answer, will not change
 const SCORE_POINTS = 10
 // total number of questions
 const MAX_QUESTIONS = 5
@@ -64,12 +66,13 @@ const MAX_QUESTIONS = 5
 function startGame () {
     questionCounter = 0
     score = 75
+    // array with spread operator to get values from questions array
     availableQuestions = [...questions]
     getNewQuestions ()
     startTimer ()
 }
 
-// timer function
+// timer function, with time going down
 function startTimer () {
     scoreText.innerText = score
     interval = setInterval(function() {
@@ -84,7 +87,8 @@ function startTimer () {
 
 // new questions function
 function getNewQuestions () {
-    // if there are no more questions, go to the end page
+    // if there are no more questions, go to the end page and save score to local storage
+    // will keep track of score
     if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
 
@@ -92,15 +96,20 @@ function getNewQuestions () {
     }
 
     questionCounter++
-    // utilizing template literal
+    // utilizing template literal to say question 1 of 5, 2 of 5, etc.
     progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
+    // calculate what question is on and correspond with percentage of questions done to update the progress bar
     progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
 
+
     const questionsIndex = Math.floor(Math.random() * availableQuestions.length)
+    // keep track of what question is on
     currentQuestion = availableQuestions[questionsIndex]
+    // which question to ask and text to display
     question.innerText = currentQuestion.question
 
     choices.forEach(function(choice) {
+        // reference data set in html to know what choices are being clicked
         const number = choice.dataset['number']
         choice.innerText = currentQuestion['choice' + number]
     })
@@ -110,6 +119,7 @@ function getNewQuestions () {
     acceptingAnswers = true
 }
 
+
 choices.forEach(function(choice) {
     choice.addEventListener('click', function (e) {
         if(!acceptingAnswers) return
@@ -118,8 +128,10 @@ choices.forEach(function(choice) {
         const selectedChoice = e.target
         const selectedAnswer = selectedChoice.dataset['number']
 
+        // utilizing ternary operator, ? is then : is else, to toggle color for correct or incorrect answer
         let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
 
+        // remove points if question is wrong - remove 10 points - from const
         if(classToApply === 'incorrect') {
             decrementScore(SCORE_POINTS)
         }
@@ -128,10 +140,11 @@ choices.forEach(function(choice) {
 
         selectedChoice.parentElement.classList.add(classToApply)
 
+        // time to show if answer was right or wrong before moving on to next question
         setTimeout(function() {
             selectedChoice.parentElement.classList.remove(classToApply)
             getNewQuestions()
-        }, 1000)
+        },1000)
     })
 })
 

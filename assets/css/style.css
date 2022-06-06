@@ -78,6 +78,7 @@ h2 {
     transform: scale(1.03);
 }
 
+/* disable function so that you have to enter in a value to submit */
 .btn[disabled]:hover {
     cursor: not-allowed;
     box-shadow: none;
