@@ -53,6 +53,7 @@ let questions = [
     }
 ]
 
+const SCORE_POINTS = 10
 const MAX_QUESTIONS = 5
 
 function startGame () {
@@ -87,3 +88,33 @@ function getNewQuestions () {
 
     acceptingAnswers = true
 }
+
+choices.forEach(function(choice) {
+    choice.addEventListener('click', function (e) {
+        if(!acceptingAnswers) return
+        acceptingAnswers = false
+
+        const selectedChoice = e.target
+        const selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
+
+        if(classToApply === 'incorrect') {
+            decrementScore(SCORE_POINTS)
+        }
+
+        selectedChoice.parentElement.classList.add(classToApply)
+
+        setTimeout(function() {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestions()
+        }, 1000)
+    })
+})
+
+function decrementScore(num) {
+    score -=num
+    scoreText.innerText = score
+}
+
+startGame()
