@@ -2,6 +2,7 @@ body {
     color: #fff;
 }
 
+/* answer buttons */
 .choice-container {
     display: flex;
     margin-bottom: 0.8rem;
@@ -29,10 +30,12 @@ body {
     width: 100%;
 }
 
+/* highlight if question is answered correctly */
 .correct {
     background: linear-gradient(32deg, rgb(11, 223, 145) 0%, rgb(41, 232, 82) 100%);
 }
 
+/* highlight if question is answered incorrectly */
 .incorrect {
     background: linear-gradient(32deg, rgba(233, 32, 32, 1) 0%, rgba(237, 69, 69, 1) 100%);
 }
@@ -67,6 +70,7 @@ body {
     width: 0%;
 }
 
+/* media query */
 @media screen and (max-width: 768px) {
     .choice-container {
         min-width: 40rem;

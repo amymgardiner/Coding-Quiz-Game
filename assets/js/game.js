@@ -11,6 +11,7 @@ let timeElapsed = 75
 let questionCounter = 0
 let availableQuestions = []
 
+// array of questions to go through
 let questions = [
     {
         question:'Commonly used data types Do Not include:',
@@ -54,9 +55,12 @@ let questions = [
     }
 ]
 
+// amount to decrease from score if there's a wrong answer
 const SCORE_POINTS = 10
+// total number of questions
 const MAX_QUESTIONS = 5
 
+// start game function linked to timer function and get new questions function, so the timer starts at the same time the questions come through
 function startGame () {
     questionCounter = 0
     score = 75
@@ -65,6 +69,7 @@ function startGame () {
     startTimer ()
 }
 
+// timer function
 function startTimer () {
     scoreText.innerText = score
     interval = setInterval(function() {
@@ -77,7 +82,9 @@ function startTimer () {
     },1000)
 }
 
+// new questions function
 function getNewQuestions () {
+    // if there are no more questions, go to the end page
     if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
 
@@ -85,6 +92,7 @@ function getNewQuestions () {
     }
 
     questionCounter++
+    // utilizing template literal
     progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
     progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
 
@@ -116,6 +124,8 @@ choices.forEach(function(choice) {
             decrementScore(SCORE_POINTS)
         }
 
+        score = timeElapsed
+
         selectedChoice.parentElement.classList.add(classToApply)
 
         setTimeout(function() {
@@ -125,9 +135,9 @@ choices.forEach(function(choice) {
     })
 })
 
+// decrease score function linked to timer function
 function decrementScore(num) {
     timeElapsed = timeElapsed - num
-    score = timeElapsed
 }
 
 startGame()
