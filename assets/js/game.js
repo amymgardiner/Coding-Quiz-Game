@@ -127,6 +127,7 @@ choices.forEach(function(choice) {
 
 function decrementScore(num) {
     timeElapsed = timeElapsed - num
+    score = timeElapsed
 }
 
 startGame()
