@@ -23,7 +23,7 @@ Once the game is over, then you can save your name and score, if it is above zer
 ![plot](./assets/images/start%20page.png)
 ![plot](./assets/images/game%20page.png)
 ![plot](./assets/images/game%20page.png)
-![plot](./assets/images/high%20scores%20page.png)
+![plot](./assets/images/high%20scores%20wider.png)
 
 ## Link to the Application
 
