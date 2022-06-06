@@ -7,6 +7,7 @@ const progressBarFull = document.querySelector('#progressBarFull')
 let currentQuestion = {}
 let acceptingAnswers = true
 let score = 0
+let timeElapsed = 0
 let questionCounter = 0
 let availableQuestions = []
 
@@ -61,7 +62,20 @@ function startGame () {
     score = 75
     availableQuestions = [...questions]
     getNewQuestions ()
+    startTimer ()
 
+}
+
+function startTimer () {
+    scoreText.innerText = score
+    interval = setInterval(function() {
+        timeElapsed++;
+        scoreText.innerText = score - timeElapsed;
+        if(timeElapsed > score) {
+            clearInterval(interval)
+            return window.location.assign('/index.html')
+        }
+    },1000)
 }
 
 function getNewQuestions () {
