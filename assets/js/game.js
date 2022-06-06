@@ -80,7 +80,7 @@ function startTimer () {
         scoreText.innerText = timeElapsed;
         if(timeElapsed == 0) {
             clearInterval(interval)
-            return window.location.assign('/index.html')
+            return window.location.assign('./index.html')
         }
     },1000)
 }
@@ -92,7 +92,7 @@ function getNewQuestions () {
     if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
 
-        return window.location.assign('/end.html')
+        return window.location.assign('./end.html')
     }
 
     questionCounter++
