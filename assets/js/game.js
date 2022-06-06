@@ -7,7 +7,7 @@ const progressBarFull = document.querySelector('#progressBarFull')
 let currentQuestion = {}
 let acceptingAnswers = true
 let score = 0
-let timeElapsed = 0
+let timeElapsed = 75
 let questionCounter = 0
 let availableQuestions = []
 
@@ -59,19 +59,18 @@ const MAX_QUESTIONS = 5
 
 function startGame () {
     questionCounter = 0
-    score = 75
+    score = 0
     availableQuestions = [...questions]
     getNewQuestions ()
     startTimer ()
-
 }
 
 function startTimer () {
     scoreText.innerText = score
     interval = setInterval(function() {
-        timeElapsed++;
-        scoreText.innerText = score - timeElapsed;
-        if(timeElapsed > score) {
+        timeElapsed--;
+        scoreText.innerText = timeElapsed;
+        if(timeElapsed == 0) {
             clearInterval(interval)
             return window.location.assign('/index.html')
         }
@@ -127,8 +126,7 @@ choices.forEach(function(choice) {
 })
 
 function decrementScore(num) {
-    score -=num
-    scoreText.innerText = score
+    timeElapsed = timeElapsed - num
 }
 
 startGame()
